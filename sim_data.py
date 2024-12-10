@@ -26,6 +26,7 @@ def gen_signal(rep_rate, num_bins, contributions, taus, irf=None):
     Outputs:
         sig: Synthetic noise-free signal normalized to a peak value of 1
         t: time values of each bin supporting sig in ns
+        avg_lt: true average lifetime
     """
 
     t = np.linspace(0,1/(rep_rate * 10**6), num_bins)
@@ -40,7 +41,9 @@ def gen_signal(rep_rate, num_bins, contributions, taus, irf=None):
 
     sig *= 1.0/sig.max()
 
-    return sig, t
+    avg_lt = np.average(taus, weights=contributions)
+
+    return sig, t, avg_lt
 
 def add_white_noise(sig, noise_db):
     """Add white noise with a specified strength. The SNR in db is defined as 20 * log(mu/sigma), where mu is the average of the signal.
