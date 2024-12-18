@@ -16,3 +16,21 @@ def single_basis(k, alpha, l):
         postfactor += (-1)**i * special.binom(k,i)*special.binom(l,i) * alpha**(l-i) * (1-alpha)**i
 
     return prefactor * postfactor
+
+def basis_array(k, alpha, l):
+    """
+    Generate discrete-time laguerre polynomial basis array
+    
+    args:
+        k: integer number of samples
+        alpha: laguerre alpha defining rate constant
+        l: laguerre ordere
+        
+    returns:
+        array of dimensions (k, l) """
+    K = np.arange(k)
+    B = np.transpose(np.vstack([
+        single_basis(K, alpha, L) for L in range(l)
+    ]))
+
+    return B
