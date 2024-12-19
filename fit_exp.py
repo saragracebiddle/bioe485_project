@@ -41,15 +41,15 @@ def fit_exp(t, y, numTerms, set_lifetimes = None):
     else:
         match numTerms:
             case 1:
-                popt, pcov = optimize.curve_fit(single_exp, t, y, p0=p_single, bounds=(0, [np.inf, np.inf]))
+                popt, pcov = optimize.curve_fit(single_exp, t, y, p0=None, bounds=(0, [np.inf, np.inf]))
                 a = popt[0]
                 tout = 1/popt[1]
             case 2:
-                popt, pcov = optimize.curve_fit(double_exp, t, y, p0=p_double, bounds=(0, [np.inf,np.inf,np.inf,np.inf]))
+                popt, pcov = optimize.curve_fit(double_exp, t, y, p0=None, bounds=(0, [np.inf,np.inf,np.inf,np.inf]))
                 a = (popt[0], popt[2])
                 tout = (1/popt[1], 1/popt[3])
             case 3:
-                popt, pcov = optimize.curve_fit(triple_exp, t, y, p0=p_triple, bounds=(0, [np.inf,np.inf,np.inf,np.inf,np.inf,np.inf]))
+                popt, pcov = optimize.curve_fit(triple_exp, t, y, p0=None, bounds=(0, [np.inf,np.inf,np.inf,np.inf,np.inf,np.inf]))
                 a = (popt[0], popt[2], popt[4])
                 tout = (1/popt[1], 1/popt[3], 1/popt[5])
         
